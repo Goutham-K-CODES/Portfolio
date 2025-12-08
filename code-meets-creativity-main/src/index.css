@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Developer Side - Dark & Futuristic */
+    --dev-bg: 230 35% 7%;
+    --dev-surface: 230 25% 12%;
+    --dev-text: 210 40% 98%;
+    --dev-accent: 199 89% 71%;
+    --dev-accent-bright: 199 100% 80%;
+    --dev-glow: 199 89% 71%;
+    
+    /* Designer Side - Light & Creative - Dreamy Pastels */
+    --design-bg: 300 24% 96%;
+    --design-surface: 0 0% 100%;
+    --design-text: 0 0% 13%;
+    --design-accent: 351 100% 86%;
+    --design-accent-bright: 351 100% 78%;
+    --design-accent-lavender: 271 50% 90%;
+    --design-accent-yellow: 44 95% 88%;
+    --design-glow: 351 100% 86%;
+    
+    /* Gradient Divider */
+    --divider-start: 199 89% 71%;
+    --divider-end: 351 100% 86%;
+    
+    /* Shared */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --primary: 199 89% 71%;
+    --primary-foreground: 230 35% 7%;
+    --secondary: 351 100% 86%;
+    --secondary-foreground: 0 0% 13%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 199 89% 71%;
+    --accent-foreground: 230 35% 7%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 199 89% 71%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground overflow-x-hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  .font-code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  
+  .font-design {
+    font-family: 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  /* Glassmorphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .glass-pink {
+    background: linear-gradient(135deg, rgba(255, 179, 179, 0.2), rgba(249, 226, 174, 0.15));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 179, 179, 0.3);
+  }
+  
+  /* Floating particles */
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleFloat 20s infinite ease-in-out;
+  }
+  
+  @keyframes particleFloat {
+    0%, 100% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 0.3;
+    }
+    25% {
+      transform: translate(100px, -100px) rotate(90deg);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translate(-50px, -200px) rotate(180deg);
+      opacity: 0.4;
+    }
+    75% {
+      transform: translate(-150px, -100px) rotate(270deg);
+      opacity: 0.7;
+    }
+  }
+  
+  /* Neon glow effect */
+  .neon-glow-blue {
+    text-shadow: 0 0 10px hsl(var(--dev-glow) / 0.5),
+                 0 0 20px hsl(var(--dev-glow) / 0.3),
+                 0 0 30px hsl(var(--dev-glow) / 0.2);
+  }
+  
+  .neon-glow-pink {
+    text-shadow: 0 0 10px hsl(var(--design-glow) / 0.5),
+                 0 0 20px hsl(var(--design-glow) / 0.3),
+                 0 0 30px hsl(var(--design-glow) / 0.2);
+  }
+  
+  /* Box glow effects */
+  .box-glow-blue {
+    box-shadow: 0 0 20px hsl(var(--dev-glow) / 0.3),
+                0 0 40px hsl(var(--dev-glow) / 0.15);
+  }
+  
+  .box-glow-pink {
+    box-shadow: 0 0 20px hsl(var(--design-glow) / 0.3),
+                0 0 40px hsl(var(--design-glow) / 0.15);
+  }
+  
+  /* Smooth animations */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+  
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--dev-accent)) 0%, hsl(var(--design-accent)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Terminal cursor */
+  .terminal-cursor::after {
+    content: '▋';
+    animation: blink 1s step-end infinite;
+    color: hsl(var(--dev-accent));
+  }
+  
+  @keyframes blink {
+    0%, 50% {
+      opacity: 1;
+    }
+    51%, 100% {
+      opacity: 0;
+    }
+  }
+}
