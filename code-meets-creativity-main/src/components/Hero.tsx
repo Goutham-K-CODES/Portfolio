@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
+import MobileToggle from './MobileToggle';
+import { useMobileView } from '@/contexts/MobileViewContext';
 
 const Hero = () => {
   const [terminalText, setTerminalText] = useState('');
+  const { mobileView, setMobileView } = useMobileView();
   const fullText = '> goutham.init()\n> loading_projects...\n> creative_mode: ON';
 
   useEffect(() => {
@@ -19,9 +22,13 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <MobileToggle activeView={mobileView} onToggle={setMobileView} />
+      
       <div className="absolute inset-0 flex">
         {/* Developer Side - Left */}
-        <div className="w-1/2 bg-[hsl(var(--dev-bg))] relative overflow-hidden">
+        <div className={`bg-[hsl(var(--dev-bg))] relative overflow-hidden transition-all duration-500 w-full md:w-1/2 ${
+          mobileView === 'developer' ? 'block' : 'hidden md:block'
+        }`}>
           {/* Circuit pattern background */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-20 left-20 w-64 h-64 border border-[hsl(var(--dev-accent))] rounded-full"></div>
@@ -36,7 +43,9 @@ const Hero = () => {
 
         {/* Designer Side - Right */}
                 {/* Designer Side - Right - CREATIVE DESIGN */}
-        <div className="w-1/2 bg-blue-100 relative overflow-hidden">
+        <div className={`bg-blue-100 relative overflow-hidden transition-all duration-500 w-full md:w-1/2 ${
+          mobileView === 'designer' ? 'block' : 'hidden md:block'
+        }`}>
           {/* Dreamy gradient blobs */}
           <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-blue-300 to-blue-200 rounded-full opacity-20 blur-3xl animate-float"></div>
           <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-br from-cyan-200 to-blue-300 rounded-full opacity-15 blur-3xl animate-float" style={{ animationDelay: '1.5s' }}></div>
@@ -62,8 +71,8 @@ const Hero = () => {
         </div>
 
         {/* Gradient Divider */}
-        <div className="absolute left-1/2 top-0 bottom-0 w-1 -ml-0.5 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] animate-pulse-glow"></div>
-        <div className="absolute left-1/2 top-0 bottom-0 w-8 -ml-4 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] opacity-20 blur-xl"></div>
+        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 -ml-0.5 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] animate-pulse-glow"></div>
+        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-8 -ml-4 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] opacity-20 blur-xl"></div>
       </div>
 
       {/* Content */}
@@ -86,7 +95,7 @@ const Hero = () => {
               {/* Download Resume Button */}
               <div className="flex justify-center">
                 <a
-                  href="/K.Goutham_resume.pdf"
+                  href="/K.Goutham resume.pdf"
                   download="K.Goutham_Resume.pdf"
                   className="flex items-center gap-2 px-6 py-3 bg-[hsl(var(--dev-surface))] text-[hsl(var(--dev-accent))] rounded-lg border border-[hsl(var(--dev-accent))/0.3] hover:border-[hsl(var(--dev-accent))] hover:box-glow-blue transition-all duration-300 font-code text-sm group"
                 >

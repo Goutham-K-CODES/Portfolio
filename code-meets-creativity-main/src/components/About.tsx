@@ -1,12 +1,20 @@
 import profilePhoto from '@/assets/profile.jpg';
 import { Code2, Palette, Zap, Heart } from 'lucide-react';
+import MobileToggle from './MobileToggle';
+import { useMobileView } from '@/contexts/MobileViewContext';
 
 const About = () => {
+  const { mobileView, setMobileView } = useMobileView();
+
   return (
     <section className="relative min-h-screen flex items-center">
+      <MobileToggle activeView={mobileView} onToggle={setMobileView} />
+      
       <div className="absolute inset-0 flex">
         {/* Developer Side - Left */}
-        <div className="w-1/2 bg-[hsl(var(--dev-bg))] flex items-center justify-center p-8 md:p-16">
+        <div className={`bg-[hsl(var(--dev-bg))] flex items-center justify-center p-8 md:p-16 transition-all duration-500 w-full md:w-1/2 ${
+          mobileView === 'developer' ? 'flex' : 'hidden md:flex'
+        }`}>
           <div className="max-w-lg">
             <pre className="font-code text-[hsl(var(--dev-accent))] text-sm md:text-base leading-relaxed">
               <span className="text-[hsl(var(--dev-accent))/0.6]">// Developer Profile</span>{'\n'}
@@ -31,7 +39,9 @@ const About = () => {
         </div>
 
         {/* Designer Side - Right */}
-        <div className="w-1/2 bg-blue-100 flex items-center justify-center p-8 md:p-16 relative overflow-hidden">
+        <div className={`bg-blue-100 flex items-center justify-center p-8 md:p-16 relative overflow-hidden transition-all duration-500 w-full md:w-1/2 ${
+          mobileView === 'designer' ? 'flex' : 'hidden md:flex'
+        }`}>
           {/* Ambient background blobs */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-300 to-transparent rounded-full opacity-10 blur-3xl animate-float"></div>
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-cyan-200 to-transparent rounded-full opacity-10 blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
@@ -99,8 +109,8 @@ const About = () => {
         </div>
 
         {/* Gradient Divider */}
-        <div className="absolute left-1/2 top-0 bottom-0 w-1 -ml-0.5 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] animate-pulse-glow"></div>
-        <div className="absolute left-1/2 top-0 bottom-0 w-8 -ml-4 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] opacity-20 blur-xl"></div>
+        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 -ml-0.5 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] animate-pulse-glow"></div>
+        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-8 -ml-4 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] opacity-20 blur-xl"></div>
       </div>
     </section>
   );

@@ -1,9 +1,14 @@
+import MobileToggle from './MobileToggle';
+import { useMobileView } from '@/contexts/MobileViewContext';
+
 const Skills = () => {
+  const { mobileView, setMobileView } = useMobileView();
+  
   const devSkills = [
-    { name: "React", level: 85 },
-    { name: "Flask", level: 88 },
-    { name: "MongoDB", level: 82 },
-    { name: "Java", level: 50 }
+    { name: "React", level: 4 },
+    { name: "Flask", level: 4.5 },
+    { name: "MongoDB", level: 4 },
+    { name: "Java", level: 2.5 }
   ];
 
   const designSkills = [
@@ -16,9 +21,13 @@ const Skills = () => {
 
   return (
     <section className="relative min-h-screen flex items-center py-20">
+      <MobileToggle activeView={mobileView} onToggle={setMobileView} />
+      
       <div className="absolute inset-0 flex">
         {/* Developer Side - Left */}
-        <div className="w-1/2 bg-[hsl(var(--dev-bg))] flex items-center justify-center p-8 md:p-16">
+        <div className={`bg-[hsl(var(--dev-bg))] flex items-center justify-center p-8 md:p-16 transition-all duration-500 w-full md:w-1/2 ${
+          mobileView === 'developer' ? 'flex' : 'hidden md:flex'
+        }`}>
           <div className="max-w-lg w-full">
             <h2 className="text-3xl md:text-4xl font-bold text-[hsl(var(--dev-text))] font-code mb-2 neon-glow-blue">
               {'{ skills }'}
@@ -34,18 +43,32 @@ const Skills = () => {
                     <span className="text-[hsl(var(--dev-text))] font-code text-sm">
                       {skill.name}
                     </span>
-                    <span className="text-[hsl(var(--dev-accent))] font-code text-xs">
-                      {skill.level}%
-                    </span>
-                  </div>
-                  <div className="h-2 bg-[hsl(var(--dev-surface))] rounded-full overflow-hidden border border-[hsl(var(--dev-accent))/0.3]">
-                    <div
-                      className="h-full bg-gradient-to-r from-[hsl(var(--dev-accent))] to-[hsl(var(--dev-accent-bright))] rounded-full transition-all duration-1000 ease-out box-glow-blue"
-                      style={{ 
-                        width: `${skill.level}%`,
-                        animation: `slideIn 1s ease-out ${index * 0.1}s backwards`
-                      }}
-                    ></div>
+                    <div className="flex gap-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <svg
+                          key={star}
+                          className={`w-4 h-4 ${
+                            star <= Math.floor(skill.level)
+                              ? 'text-[hsl(var(--dev-accent))] fill-current'
+                              : star - 0.5 === skill.level
+                              ? 'text-[hsl(var(--dev-accent))]'
+                              : 'text-[hsl(var(--dev-accent))/0.3]'
+                          }`}
+                          fill={star - 0.5 === skill.level ? 'url(#half)' : 'currentColor'}
+                          viewBox="0 0 20 20"
+                        >
+                          {star - 0.5 === skill.level && (
+                            <defs>
+                              <linearGradient id="half">
+                                <stop offset="50%" stopColor="currentColor" />
+                                <stop offset="50%" stopColor="currentColor" stopOpacity="0.3" />
+                              </linearGradient>
+                            </defs>
+                          )}
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -62,7 +85,9 @@ const Skills = () => {
         </div>
 
         {/* Designer Side - Right */}
-        <div className="w-1/2 bg-blue-100 flex items-center justify-center p-6 md:p-12 relative overflow-hidden">
+        <div className={`bg-blue-100 flex items-center justify-center p-6 md:p-12 relative overflow-hidden transition-all duration-500 w-full md:w-1/2 ${
+          mobileView === 'designer' ? 'flex' : 'hidden md:flex'
+        }`}>
           {/* Dreamy ambient blobs */}
           <div className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-br from-blue-300 to-transparent rounded-full opacity-15 blur-3xl animate-float"></div>
           <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-tr from-cyan-200 to-transparent rounded-full opacity-10 blur-3xl animate-float" style={{ animationDelay: '2.5s' }}></div>
@@ -178,8 +203,8 @@ const Skills = () => {
         </div>
 
         {/* Gradient Divider */}
-        <div className="absolute left-1/2 top-0 bottom-0 w-1 -ml-0.5 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] animate-pulse-glow"></div>
-        <div className="absolute left-1/2 top-0 bottom-0 w-8 -ml-4 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] opacity-20 blur-xl"></div>
+        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 -ml-0.5 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] animate-pulse-glow"></div>
+        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-8 -ml-4 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] opacity-20 blur-xl"></div>
       </div>
     </section>
   );

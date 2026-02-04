@@ -1,21 +1,62 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Mail, Github, Linkedin, Send, Download } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
+import emailjs from '@emailjs/browser';
+import MobileToggle from './MobileToggle';
+import { useMobileView } from '@/contexts/MobileViewContext';
 
 const Contact = () => {
+  const { mobileView, setMobileView } = useMobileView();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init('qGDPd0vKrpEjvvXwP');
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thanks for reaching out. I'll get back to you soon!",
-    });
-    setFormData({ name: '', email: '', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      const templateParams = {
+        from_name: formData.name,
+        reply_to: formData.email,
+        message: formData.message,
+        to_email: 'k08753568@gmail.com',
+        to_name: 'Goutham',
+      };
+
+      console.log('Sending email with params:', templateParams);
+
+      const response = await emailjs.send(
+        'service_8yda8th',
+        'template_he5thhe',
+        templateParams
+      );
+
+      console.log('Email sent successfully:', response);
+
+      toast({
+        title: "Message Sent!",
+        description: "Thanks for reaching out. I'll get back to you soon!",
+      });
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error: any) {
+      console.error('EmailJS Error Details:', error);
+      toast({
+        title: "Error",
+        description: error?.text || "Failed to send message. Please try again or email directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -27,9 +68,13 @@ const Contact = () => {
 
   return (
     <section id="contact" className="relative min-h-screen flex items-center py-20">
+      <MobileToggle activeView={mobileView} onToggle={setMobileView} />
+      
       <div className="absolute inset-0 flex">
         {/* Developer Side - Left */}
-        <div className="w-1/2 bg-[hsl(var(--dev-bg))] flex items-center justify-center p-8 md:p-16 relative overflow-hidden">
+        <div className={`bg-[hsl(var(--dev-bg))] flex items-center justify-center p-8 md:p-16 relative overflow-hidden transition-all duration-500 w-full md:w-1/2 ${
+          mobileView === 'developer' ? 'flex' : 'hidden md:flex'
+        }`}>
           {/* Floating particles */}
           <div className="absolute top-20 left-20 w-2 h-2 bg-[hsl(var(--dev-accent))] rounded-full animate-float"></div>
           <div className="absolute bottom-32 right-32 w-3 h-3 bg-[hsl(var(--dev-accent))] rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
@@ -92,8 +137,8 @@ const Contact = () => {
                 LinkedIn
               </a>
               <a
-                href="/resume.pdf"
-                download="Goutham_Resume.pdf"
+                href="/K.Goutham resume.pdf"
+                download="K.Goutham_Resume.pdf"
                 className="flex items-center gap-2 px-4 py-2 bg-[hsl(var(--dev-surface))] text-[hsl(var(--dev-accent))] rounded-lg border border-[hsl(var(--dev-accent))/0.3] hover:border-[hsl(var(--dev-accent))] hover:box-glow-blue transition-all duration-300 font-code text-sm"
               >
                 <Download className="w-4 h-4" />
@@ -104,7 +149,9 @@ const Contact = () => {
         </div>
 
         {/* Designer Side - Right */}
-        <div className="w-1/2 bg-blue-100 flex items-center justify-center p-8 md:p-16 relative overflow-hidden">
+        <div className={`bg-blue-100 flex items-center justify-center p-8 md:p-16 relative overflow-hidden transition-all duration-500 w-full md:w-1/2 ${
+          mobileView === 'designer' ? 'flex' : 'hidden md:flex'
+        }`}>
           {/* Dreamy gradient blobs */}
           <div className="absolute top-20 right-20 w-80 h-80 bg-gradient-to-br from-blue-300 to-transparent rounded-full opacity-15 blur-3xl animate-float"></div>
           <div className="absolute bottom-20 left-20 w-72 h-72 bg-gradient-to-tr from-cyan-200 to-transparent rounded-full opacity-15 blur-3xl animate-float" style={{ animationDelay: '1.5s' }}></div>
@@ -183,20 +230,21 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="w-full px-6 py-4 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white rounded-2xl font-medium font-design hover:scale-[1.02] hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 group relative overflow-hidden"
+                disabled={isSubmitting}
+                className="w-full px-6 py-4 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white rounded-2xl font-medium font-design hover:scale-[1.02] hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 group relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {/* Button glow effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                 <Send className="w-5 h-5 relative z-10 group-hover:rotate-45 transition-transform duration-300" />
-                <span className="relative z-10">Send Message</span>
+                <span className="relative z-10">{isSubmitting ? 'Sending...' : 'Send Message'}</span>
               </button>
             </form>
           </div>
         </div>
 
         {/* Gradient Divider */}
-        <div className="absolute left-1/2 top-0 bottom-0 w-1 -ml-0.5 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] animate-pulse-glow"></div>
-        <div className="absolute left-1/2 top-0 bottom-0 w-8 -ml-4 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] opacity-20 blur-xl"></div>
+        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 -ml-0.5 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] animate-pulse-glow"></div>
+        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-8 -ml-4 bg-gradient-to-b from-[hsl(var(--divider-start))] to-[hsl(var(--divider-end))] opacity-20 blur-xl"></div>
       </div>
     </section>
   );
