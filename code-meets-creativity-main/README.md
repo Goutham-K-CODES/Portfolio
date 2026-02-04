@@ -1,53 +1,209 @@
-# Welcome to your Lovable project
+# 🎨 Code Meets Creativity - Portfolio Website
 
-## Project info
+<div align="center">
 
-**URL**: https://lovable.dev/projects/62526ec0-a575-46e1-b90a-4af5696813af
+![Portfolio Banner](https://img.shields.io/badge/Portfolio-Live-success?style=for-the-badge)
+![React](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
+![Vite](https://img.shields.io/badge/Vite-5-purple?style=for-the-badge&logo=vite)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-cyan?style=for-the-badge&logo=tailwindcss)
 
-## How can I edit this code?
+### 🌐 [**Live Demo**](https://portfolio-99s5r00ps-gouthams-projects-f3f15f60.vercel.app) 🚀
 
-There are several ways of editing your application.
+*A modern, dual-personality portfolio showcasing both Developer and Designer perspectives*
 
-**Use Lovable**
+</div>
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/62526ec0-a575-46e1-b90a-4af5696813af) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## ✨ Features
 
-**Use your preferred IDE**
+### 🎯 Unique Split-Screen Design
+- **Developer Side** - Dark theme with code-style aesthetics and terminal effects
+- **Designer Side** - Light theme with creative, artistic elements and smooth animations
+- **Mobile Toggle** - Seamless switching between views on mobile devices
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 📱 Mobile-First Experience
+- Responsive design that adapts perfectly to all screen sizes
+- Dedicated mobile toggle for switching between Developer and Designer views
+- Synchronized state across all sections
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 🛠️ Key Functionalities
+- ✅ **Resume Download** - One-click PDF download
+- ✅ **EmailJS Integration** - Working contact form with email notifications
+- ✅ **Star Rating System** - Visual skill representation (5-star scale)
+- ✅ **Smooth Animations** - Floating particles, gradient effects, and transitions
+- ✅ **Interactive Projects** - Live demos and GitHub links for each project
+- ✅ **Social Links** - Direct links to GitHub, LinkedIn, and Email
 
-Follow these steps:
+---
+
+## 🚀 Tech Stack
+
+| Category | Technologies |
+|----------|-------------|
+| **Frontend** | React 18, TypeScript |
+| **Build Tool** | Vite 5 |
+| **Styling** | TailwindCSS, Custom CSS |
+| **UI Components** | Shadcn/ui |
+| **Form Handling** | EmailJS |
+| **Icons** | Lucide React |
+| **Deployment** | Vercel |
+
+---
+
+## 📦 Installation & Setup
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Steps
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Clone the repository
+git clone https://github.com/Goutham-K-CODES/Portfolio.git
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Navigate to project directory
+cd Portfolio/code-meets-creativity-main
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
+
+# Build for production
+npm run build
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🎨 Project Structure
 
-**Use GitHub Codespaces**
+```
+Portfolio/
+├── public/
+│   └── K.Goutham resume.pdf
+├── src/
+│   ├── components/
+│   │   ├── Hero.tsx           # Landing section
+│   │   ├── About.tsx          # About section
+│   │   ├── Skills.tsx         # Skills with star ratings
+│   │   ├── Projects.tsx       # Project showcase
+│   │   ├── Contact.tsx        # Contact form
+│   │   ├── MobileToggle.tsx   # Mobile view switcher
+│   │   └── ui/                # Shadcn components
+│   ├── contexts/
+│   │   └── MobileViewContext.tsx  # Shared state
+│   ├── assets/
+│   │   └── profile.jpg        # Profile photo
+│   └── App.tsx
+├── package.json
+└── README.md
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
+---
+
+## 🌟 Key Sections
+
+### 1. **Hero Section**
+- Animated terminal text
+- Download resume button
+- Inspirational quote
+
+### 2. **About Section**
+- Profile photo with hover effects
+- Bio and skills overview
+- Feature cards (Clean Code, UI/UX, Fast & Efficient, User-Centric)
+
+### 3. **Skills Section**
+- **Developer**: Star rating system (React, Flask, MongoDB, Java)
+- **Designer**: Percentage-based progress bars (Figma, UI/UX, Prototyping, Canva)
+
+### 4. **Projects Section**
+- **Developer Projects**: FreshFares, To-Do List, IEEE Website
+- **Designer Projects**: Figma designs with live previews
+- GitHub links and live demos
+
+### 5. **Contact Section**
+- Working contact form with EmailJS
+- Social media links
+- Form validation and error handling
+
+---
+
+## 📧 EmailJS Configuration
+
+The contact form uses EmailJS for email delivery. Configuration details:
+- Service ID: `service_8yda8th`
+- Template ID: `template_he5thhe`
+- Recipient: `k08753568@gmail.com`
+
+---
+
+## 🎯 Mobile Features
+
+- **Toggle Button**: Switches between Developer and Designer views
+- **Fixed Position**: Follows user while scrolling
+- **Smooth Transitions**: 500ms animation between views
+- **Synchronized State**: All sections switch together
+
+---
+
+## 🚀 Deployment
+
+This project is deployed on **Vercel** with automatic deployments enabled.
+
+### Live URL
+🔗 [https://portfolio-99s5r00ps-gouthams-projects-f3f15f60.vercel.app](https://portfolio-99s5r00ps-gouthams-projects-f3f15f60.vercel.app)
+
+### Deploy Your Own
+```sh
+# Install Vercel CLI
+npm i -g vercel
+
+# Login to Vercel
+vercel login
+
+# Deploy
+vercel --prod
+```
+
+---
+
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+## 👨‍💻 Author
+
+**Goutham K**
+- 🌐 Portfolio: [Live Demo](https://portfolio-99s5r00ps-gouthams-projects-f3f15f60.vercel.app)
+- 💼 GitHub: [@Goutham-K-CODES](https://github.com/Goutham-K-CODES)
+- 📧 Email: goutham090205@gmail.com
+- 💼 LinkedIn: [Goutham K](https://www.linkedin.com/in/goutham-k-693695254)
+
+---
+
+## 🙏 Acknowledgments
+
+- Design inspiration from modern portfolio trends
+- UI components from [Shadcn/ui](https://ui.shadcn.com/)
+- Icons from [Lucide](https://lucide.dev/)
+- Email service by [EmailJS](https://www.emailjs.com/)
+
+---
+
+<div align="center">
+
+### ⭐ Star this repository if you found it helpful!
+
+Made with ❤️ by Goutham K
+
+</div>
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
 ## What technologies are used for this project?
